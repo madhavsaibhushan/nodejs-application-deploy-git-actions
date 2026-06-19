@@ -11,7 +11,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-
+      - name: Verify key format
+        run: |
+            echo "$SSH_PRIVATE_KEY" | head -1
+            echo "$SSH_PRIVATE_KEY" | tail -1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Check secret exists
         run: |
           if [ -z "${{ secrets.SSH_KEY }}" ]; then
