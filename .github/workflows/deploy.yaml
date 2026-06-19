@@ -1,24 +1,32 @@
 name: deploy Nodejs application
 
-on:  
+on:
   push:
-    branches: 
-          - main
+    branches:
+      - main
 jobs:
   deploy:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout Code
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-        - name: Deploy via SSH
-          uses: appleboy/ssh-action@v1.0.3  
-          with:
-              host: ${{ secrets.HOST_URL }}
-              username: root
-              key: ${{ secrets.SSH_KEY }}
-              script: |
-                cd /home/madhavsaibhushan
-                git pull
-                docker compose up -d --build
+      - name: Check secret exists
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+           echo "❌ SSH_PRIVATE_KEY is empty or not set!"
+             else
+              echo "✅ SSH_PRIVATE_KEY is set"
+                 fi
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST_URL }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/madhavsaibhushan
+            git pull
+            docker compose up -d --build
