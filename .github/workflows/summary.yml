@@ -30,7 +30,8 @@ jobs:
 
       - name: Comment with AI summary
         run: |
-          gh issue comment $ISSUE_NUMBER --body "$RESPONSE"
+           echo "Target number: $TARGET_NUMBER"
+           gh issue comment "$TARGET_NUMBER" --body "$RESPONSE"
         env:
           GH_TOKEN: ${{ secrets.GIT_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
