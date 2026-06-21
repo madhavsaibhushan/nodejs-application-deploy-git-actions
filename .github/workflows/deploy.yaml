@@ -29,7 +29,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST_URL }}
-          username: root
+          username: githubactions-nodejs
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions
