@@ -13,8 +13,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Verify key format
         run: |
-            echo "$SSH_KEY" | head -1
-            echo "$SSH_KEY" | tail -1
+          echo "$SSH_KEY" | head -1
+          echo "$SSH_KEY" | tail -1
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
       - name: Check secret exists
@@ -32,6 +32,8 @@ jobs:
           username: githubactions-nodejs
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions
-            git pull
-            docker compose up -d --build
+            # Run the cd and git commands as the madhavsaibhushan user
+               sudo -u madhavsaibhushan -H bash -c "
+               cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions && \
+               git pull && \
+               docker compose up -d --build
