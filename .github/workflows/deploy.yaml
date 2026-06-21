@@ -32,8 +32,10 @@ jobs:
           username: githubactions-nodejs
           key: ${{ secrets.SSH_KEY }}
           script: |
-           # Run the cd and git commands as the madhavsaibhushan user
-            sudo -u madhavsaibhushan -H bash -c "
-              cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions && \
-              git pull && \
-              docker compose up -d --build "
+            # 1. Pull the latest code as the 'madhavsaibhushan' user to preserve file ownership
+            sudo -u madhavsaibhushan -H bash -c "cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions && git pull"
+            
+            # 2. Rebuild and restart the container as root with NO cache to force the new code in
+            cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions
+            sudo docker compose build --no-cache
+            sudo docker compose up -d --force-recreate
