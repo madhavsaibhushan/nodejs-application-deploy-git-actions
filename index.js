@@ -8,11 +8,11 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to Basic Node.js App v3');
+  res.send('Welcome to Basic Node.js App v4');
 });
 
 app.get('/api/hello', (req, res) => {
-  const name = req.query.name || 'World from v3';
+  const name = req.query.name || 'World from v5';
   res.json({ message: `Hello, ${name}!` });
 });
 
