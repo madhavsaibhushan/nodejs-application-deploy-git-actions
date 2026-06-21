@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to Basic Node.js App');
+  res.send('Welcome to Basic Node.js App v1');
 });
 
 app.get('/api/hello', (req, res) => {
