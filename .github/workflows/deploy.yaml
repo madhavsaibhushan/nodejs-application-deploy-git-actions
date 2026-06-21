@@ -34,6 +34,6 @@ jobs:
           script: |
            # Run the cd and git commands as the madhavsaibhushan user
               sudo -u madhavsaibhushan -H bash -c "
-              cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions && \
+              cd /home/madhavsaibhushan/nodejs-application-deploy-git-actions && git checkout main && \
               git pull && \
               docker compose up -d --build "
